@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "personaje")
@@ -35,5 +35,10 @@ public class Personaje implements Serializable {
     @Column(name = "historia")
     private String historia;
 
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "personaje_pelicula_serie",
+        joinColumns = @JoinColumn(name = "id_personaje"),
+        inverseJoinColumns = @JoinColumn(name = "id_pelicula_serie"))
+    private Set<Pelicula_Serie> peliculas_series;
     //relacion con serie/pelicula
 }
