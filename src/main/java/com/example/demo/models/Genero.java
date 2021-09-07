@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +28,7 @@ public class Genero implements Serializable {
     @Column
     private String imagen;
 
-    @ManyToMany(mappedBy = "generos")
-    private Set<Pelicula_Serie> peliculas_series;
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//    @ManyToMany(mappedBy = "generos")
+//    private Set<Pelicula_Serie> peliculas_series;
 }

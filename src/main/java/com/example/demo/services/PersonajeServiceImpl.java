@@ -1,10 +1,12 @@
 package com.example.demo.services;
 
-import com.example.demo.model.Personaje;
+import com.example.demo.models.Pelicula_Serie;
+import com.example.demo.models.Personaje;
 import com.example.demo.repositories.PersonajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -28,5 +30,20 @@ public class PersonajeServiceImpl implements PersonajeService {
             return personajeDB;
         }
         return personajeRepository.save(personaje);
+    }
+
+    @Override
+    public List<Personaje> findAll() {
+        List<Personaje> personajes = personajeRepository.findAll();
+        return personajes;
+    }
+
+    @Override
+    public Boolean deletePersonaje(Long id) {
+        if (personajeRepository.existsById(id)){
+            personajeRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,12 +34,14 @@ public class Pelicula_Serie implements Serializable {
     @Column
     private int calificacion;
 
-    @ManyToMany(mappedBy = "peliculas_series")
-    private Set<Personaje> personajes;
-
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(name = "pelicula_serie_genero",
-        joinColumns = @JoinColumn(name = "id_pelicula_serie"),
-        inverseJoinColumns = @JoinColumn(name = "id_genero"))
-    private Set<Genero> generos;
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//    @ManyToMany(mappedBy = "peliculas_series")
+//    private Set<Personaje> personajes;
+//
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+//    @JoinTable(name = "pelicula_serie_genero",
+//        joinColumns = @JoinColumn(name = "id_pelicula_serie"),
+//        inverseJoinColumns = @JoinColumn(name = "id_genero"))
+//    private Set<Genero> generos;
 }
