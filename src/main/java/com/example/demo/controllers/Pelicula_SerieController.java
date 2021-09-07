@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.models.Pelicula_Serie;
+import com.example.demo.models.Personaje;
 import com.example.demo.services.Pelicula_SerieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,5 +41,21 @@ public class Pelicula_SerieController {
     public ResponseEntity<Pelicula_Serie> createPelicula_Serie(@RequestBody Pelicula_Serie pelicula_serieDTO){
         Pelicula_Serie pelicula_serie = pelicula_serieService.createPelicula_Serie(pelicula_serieDTO);
         return ResponseEntity.ok(pelicula_serie);
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<Pelicula_Serie> update(@PathVariable Long id, @RequestBody Pelicula_Serie ps){
+        if (ps != null)
+            return ResponseEntity.status(HttpStatus.OK).body(pelicula_serieService.update(id, ps));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<Pelicula_Serie> delete(@PathVariable Long id){
+        Boolean pelicula_Serie = pelicula_serieService.deletePelicula_Serie(id);
+        if (pelicula_Serie) {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }
