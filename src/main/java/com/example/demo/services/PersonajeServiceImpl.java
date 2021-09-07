@@ -46,4 +46,12 @@ public class PersonajeServiceImpl implements PersonajeService {
         }
         return false;
     }
+
+    @Override
+    public Personaje update(Long id, Personaje p) {
+        Optional<Personaje> personaje = personajeRepository.findById(id);
+        if (!personaje.isPresent())
+            return null;
+        return personajeRepository.save(p);
+    }
 }

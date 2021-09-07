@@ -13,4 +13,5 @@ public interface PersonajeRepository extends JpaRepository<Personaje, Long> {
     Optional<Personaje> findById(Long id);
     List<Personaje> findAll();
     void deleteById(Long id);
+    //Personaje update(Long id, Personaje p);
 }
