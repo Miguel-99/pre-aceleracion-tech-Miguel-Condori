@@ -4,6 +4,7 @@ import com.example.demo.models.Personaje;
 import com.example.demo.services.PersonajeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,13 +18,18 @@ public class PersonajeController {
     @Autowired
     private PersonajeService personajeService;
 
-    @GetMapping
-    public ResponseEntity<List<Personaje>> getAll(){
-        List<Personaje> personajes = personajeService.findAll();
-        if ( personajes.isEmpty())
-            return ResponseEntity.notFound().build();
-        return ResponseEntity.status(HttpStatus.OK).body(personajes);
+    @GetMapping()
+    public ResponseEntity<List<Personaje>> getByName(@RequestParam(required = false) String name, @RequestParam(required = false) Integer age){
+        return ResponseEntity.status(HttpStatus.OK).body(personajeService.findByFiltro(name, age));
     }
+
+//    @GetMapping
+//    public ResponseEntity<List<Personaje>> getAll(){
+//        List<Personaje> personajes = personajeService.findAll();
+//        if ( personajes.isEmpty())
+//            return ResponseEntity.notFound().build();
+//        return ResponseEntity.status(HttpStatus.OK).body(personajes);
+//    }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<Optional<Personaje>> getOne(@PathVariable Long id){
@@ -33,6 +39,8 @@ public class PersonajeController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(personaje);
     }
+
+
 
     @PostMapping
     public ResponseEntity<Personaje> createPersonaje(@RequestBody Personaje personajeDTO){

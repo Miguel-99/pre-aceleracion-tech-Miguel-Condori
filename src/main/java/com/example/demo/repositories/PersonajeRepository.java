@@ -9,9 +9,9 @@ import java.util.Optional;
 
 @Repository
 public interface PersonajeRepository extends JpaRepository<Personaje, Long> {
-    Personaje findByNombre(String nombre);
     Optional<Personaje> findById(Long id);
     List<Personaje> findAll();
     void deleteById(Long id);
-    //Personaje update(Long id, Personaje p);
+    List<Personaje> findByNombre(String nombre);
+    List<Personaje> findByEdad(Integer edad);
 }

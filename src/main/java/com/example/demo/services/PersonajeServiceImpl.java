@@ -1,6 +1,5 @@
 package com.example.demo.services;
 
-import com.example.demo.models.Pelicula_Serie;
 import com.example.demo.models.Personaje;
 import com.example.demo.repositories.PersonajeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,10 +23,8 @@ public class PersonajeServiceImpl implements PersonajeService {
 
     @Override
     public Personaje createPersonaje(Personaje personaje) {
-
-        Personaje personajeDB = personajeRepository.findByNombre(personaje.getNombre());
-        if (personajeDB != null){
-            return personajeDB;
+        if (personaje == null){
+            return null;
         }
         return personajeRepository.save(personaje);
     }
@@ -53,5 +50,19 @@ public class PersonajeServiceImpl implements PersonajeService {
         if (!personaje.isPresent())
             return null;
         return personajeRepository.save(p);
+    }
+
+    @Override
+    public List<Personaje> findByFiltro(String nombre, Integer edad){
+        if (nombre != null)
+            return personajeRepository.findByNombre(nombre);
+        if (edad != null)
+            return personajeRepository.findByEdad(edad);
+//        if (nombre == null)
+//            return findAll();
+        List<Personaje> personajes = personajeRepository.findByNombre(nombre);
+        if (personajes.isEmpty())
+            return null;
+        return personajes;
     }
 }
