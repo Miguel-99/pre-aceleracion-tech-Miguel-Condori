@@ -19,7 +19,8 @@ public class PersonajeController {
     private PersonajeService personajeService;
 
     @GetMapping()
-    public ResponseEntity<List<Personaje>> getByName(@RequestParam(required = false) String name, @RequestParam(required = false) Integer age){
+    public ResponseEntity<List<Personaje>> getByFilter(@RequestParam(required = false) String name, @RequestParam(required = false) Integer age){
+        System.out.println(name + age);
         return ResponseEntity.status(HttpStatus.OK).body(personajeService.findByFiltro(name, age));
     }
 

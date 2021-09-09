@@ -58,11 +58,6 @@ public class PersonajeServiceImpl implements PersonajeService {
             return personajeRepository.findByNombre(nombre);
         if (edad != null)
             return personajeRepository.findByEdad(edad);
-//        if (nombre == null)
-//            return findAll();
-        List<Personaje> personajes = personajeRepository.findByNombre(nombre);
-        if (personajes.isEmpty())
-            return null;
-        return personajes;
+        return personajeRepository.findAll();
     }
 }
