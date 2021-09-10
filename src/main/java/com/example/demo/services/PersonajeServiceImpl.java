@@ -16,7 +16,7 @@ public class PersonajeServiceImpl implements PersonajeService {
     @Autowired
     private PersonajeRepository personajeRepository;
 
-    private PeliculaSerieRepository peliculaSerieRepository;
+
 
     @Override
     public Optional<Personaje> getPersonaje(Long id) {
