@@ -13,7 +13,7 @@ public interface PersonajeService {
     List<Personaje> findAll();
     Boolean deletePersonaje(Long id);
     Personaje update(Long id, Personaje p);
-    //List<Personaje> findByNombre(String nombre);
-
-    List<Personaje> findByFiltro(String nombre, Integer edad);
+    List<Personaje> findByNombre(String nombre);
+    List<Personaje> findByEdad(Integer edad);
+    List<Personaje> findByPeliculaSerie(Long id);
 }
