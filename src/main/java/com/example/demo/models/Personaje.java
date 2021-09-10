@@ -1,9 +1,11 @@
 package com.example.demo.models;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "personaje")
@@ -12,31 +14,36 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id"
+)
 public class Personaje implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "imagen")
+    @Column
     private String imagen;
 
-    @Column(name = "nombre")
+    @Column
     private String nombre;
 
-    @Column(name = "edad")
+    @Column
     private int edad;
 
-    @Column(name = "peso")
+    @Column
     private float peso;
 
-    @Column(name = "historia")
+    @Column
     private String historia;
 
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-//    @JoinTable(name = "personaje_pelicula_serie",
-//        joinColumns = @JoinColumn(name = "id_personaje"),
-//        inverseJoinColumns = @JoinColumn(name = "id_pelicula_serie"))
-//    private Set<PeliculaSerie> peliculas_series;
+
+    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinTable(name = "personaje_pelicula_serie",
+        joinColumns = @JoinColumn(name = "id_personaje"),
+        inverseJoinColumns = @JoinColumn(name = "id_pelicula_serie"))
+    private Set<PeliculaSerie> peliculasSeries;
 
 }
