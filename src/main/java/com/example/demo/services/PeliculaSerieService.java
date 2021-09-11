@@ -14,4 +14,7 @@ public interface PeliculaSerieService {
     List<PeliculaSerie> findALl();
     PeliculaSerie update(Long id, PeliculaSerie ps);
     Boolean deletePeliculaSerie(Long id);
+    List<PeliculaSerie> findByName(String name);
+    List<PeliculaSerie> findByGenero(Long id);
+    List<PeliculaSerie> findByFechaCreacion(String order);
 }

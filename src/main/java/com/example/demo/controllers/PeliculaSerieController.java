@@ -19,12 +19,30 @@ public class PeliculaSerieController {
     @Autowired
     private PeliculaSerieService peliculaSerieService;
 
-    @GetMapping("")
+    @GetMapping()
     public ResponseEntity<List<PeliculaSerie>> getAll(){
         List<PeliculaSerie> peliculas_series = peliculaSerieService.findALl();
         if (peliculas_series.isEmpty())
             return ResponseEntity.notFound().build();
         return ResponseEntity.status(HttpStatus.OK).body(peliculas_series);
+    }
+
+    @GetMapping(params = "name")
+    public ResponseEntity<List<PeliculaSerie>> getByName(@RequestParam String name){
+        System.out.println(name);
+        return ResponseEntity.status(HttpStatus.OK).body(peliculaSerieService.findByName(name));
+    }
+
+    @GetMapping(params = "genre")
+    public ResponseEntity<List<PeliculaSerie>> getByGenre(@RequestParam Long genre){
+        System.out.println(genre);
+        return ResponseEntity.status(HttpStatus.OK).body(peliculaSerieService.findByGenero(genre));
+    }
+
+    @GetMapping(params = "order")
+    public ResponseEntity<List<PeliculaSerie>> getByFechaCreacion(@RequestParam String order){
+        System.out.println(order);
+        return ResponseEntity.status(HttpStatus.OK).body(peliculaSerieService.findByFechaCreacion(order.toUpperCase()));
     }
 
     @GetMapping(path = "/{id}")

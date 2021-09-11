@@ -21,17 +21,16 @@ public class PeliculaSerieServiceImpl implements PeliculaSerieService{
 
     @Override
     public PeliculaSerie createPeliculaSerie(PeliculaSerie peliculaSerie) {
-        PeliculaSerie pelicula_serieDB = peliculaSerieRepository.findByTitulo(peliculaSerie.getTitulo());
-        if (pelicula_serieDB != null){
-            return pelicula_serieDB;
+        Optional<PeliculaSerie> pelicula_serieDB = peliculaSerieRepository.findById(peliculaSerie.getId());
+        if (pelicula_serieDB.isPresent()){
+            return pelicula_serieDB.get();
         }
         return peliculaSerieRepository.save(peliculaSerie);
     }
 
     @Override
     public List<PeliculaSerie> findALl() {
-        List<PeliculaSerie> peliculaSerie = peliculaSerieRepository.findAll();
-        return peliculaSerie;
+        return peliculaSerieRepository.findAll();
     }
 
     @Override
@@ -49,6 +48,23 @@ public class PeliculaSerieServiceImpl implements PeliculaSerieService{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<PeliculaSerie> findByName (String name) {
+        return peliculaSerieRepository.findByTituloContaining(name);
+    }
+
+    @Override
+    public List<PeliculaSerie> findByGenero(Long id) {
+        return peliculaSerieRepository.findByGeneros_Id(id);
+    }
+
+    @Override
+    public List<PeliculaSerie> findByFechaCreacion(String order) {
+        if (order.equals("ASC"))
+            return peliculaSerieRepository.findByOrderByFechaCreacionAsc();
+        return peliculaSerieRepository.findByOrderByFechaCreacionDesc();
     }
 
 }

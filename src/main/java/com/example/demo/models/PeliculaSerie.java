@@ -32,7 +32,7 @@ public class PeliculaSerie implements Serializable {
     private String titulo;
 
     @Column(name = "fecha_creacion")
-    private Date fecha_creacion;
+    private Date fechaCreacion;
 
     @Column
     private int calificacion;
