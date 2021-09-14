@@ -40,7 +40,7 @@ public class AuthenticationController {
         return new ResponseEntity<>(user, HttpStatus.ACCEPTED);
     }
 
-    @PostMapping(path = "/authentication")
+    @PostMapping(path = "/login")
     public ResponseEntity<?> createAuthentication(@RequestBody AuthenticationRequest authenticationRequest) throws Exception {
         try{
             authenticationManager.authenticate(
