@@ -37,11 +37,11 @@ public class PeliculaSerie implements Serializable {
     @Column
     private int calificacion;
 
-    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToMany(mappedBy = "peliculasSeries")
     private Set<Personaje> personajes;
 
-    //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "pelicula_serie_genero",
         joinColumns = @JoinColumn(name = "id_pelicula_serie"),

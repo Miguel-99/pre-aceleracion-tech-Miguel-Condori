@@ -21,7 +21,7 @@ public class PeliculaSerieServiceImpl implements PeliculaSerieService{
 
     @Override
     public PeliculaSerie createPeliculaSerie(PeliculaSerie peliculaSerie) {
-        Optional<PeliculaSerie> pelicula_serieDB = peliculaSerieRepository.findById(peliculaSerie.getId());
+        Optional<PeliculaSerie> pelicula_serieDB = peliculaSerieRepository.findByTitulo(peliculaSerie.getTitulo());
         if (pelicula_serieDB.isPresent()){
             return pelicula_serieDB.get();
         }

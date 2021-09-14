@@ -12,6 +12,7 @@ import java.util.Optional;
 public interface PeliculaSerieRepository extends JpaRepository<PeliculaSerie, Long> {
     List<PeliculaSerie> findAll();
     Optional<PeliculaSerie> findById(Long id);
+    Optional<PeliculaSerie> findByTitulo(String titulo);
     List<PeliculaSerie> findByGeneros_Id(Long id);
     List<PeliculaSerie> findByOrderByFechaCreacionAsc();
     List<PeliculaSerie> findByOrderByFechaCreacionDesc();
