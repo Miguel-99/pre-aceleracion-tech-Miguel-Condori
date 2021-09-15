@@ -11,7 +11,6 @@ import java.util.Set;
 @Table(name = "personaje")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 
 @JsonIdentityInfo(
@@ -38,9 +37,16 @@ public class Personaje implements Serializable {
     @Column
     private String historia;
 
+    public Personaje(String imagen, String nombre, int edad, float peso, String historia) {
+        this.imagen = imagen;
+        this.nombre = nombre;
+        this.edad = edad;
+        this.peso = peso;
+        this.historia = historia;
+    }
 
     //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH}, fetch = FetchType.LAZY)
     @JoinTable(name = "personaje_pelicula_serie",
         joinColumns = @JoinColumn(name = "id_personaje"),
         inverseJoinColumns = @JoinColumn(name = "id_pelicula_serie"))

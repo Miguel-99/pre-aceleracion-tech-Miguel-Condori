@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -41,8 +40,15 @@ public class PeliculaSerie implements Serializable {
     @ManyToMany(mappedBy = "peliculasSeries")
     private Set<Personaje> personajes;
 
+    public PeliculaSerie(String imagen, String titulo, Date fechaCreacion, int calificacion) {
+        this.imagen = imagen;
+        this.titulo = titulo;
+        this.fechaCreacion = fechaCreacion;
+        this.calificacion = calificacion;
+    }
+
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name = "pelicula_serie_genero",
         joinColumns = @JoinColumn(name = "id_pelicula_serie"),
         inverseJoinColumns = @JoinColumn(name = "id_genero"))
