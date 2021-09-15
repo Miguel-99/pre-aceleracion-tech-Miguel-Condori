@@ -27,7 +27,7 @@ public class UserServiceImpl implements UserService{
         user = userRepository.save(user);
 
         //TODO: agregar envio de link de autenticación
-        emailSenderService.send(user.getEmail(), "http://localhost:9000/api/v1/authentication");
+        emailSenderService.send(user.getEmail(), "http://localhost:9000/api/v1/login");
         return user;
     }
 }
