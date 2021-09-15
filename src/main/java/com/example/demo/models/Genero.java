@@ -32,7 +32,12 @@ public class Genero implements Serializable {
     @Column
     private String imagen;
 
+    public Genero(String nombre, String imagen) {
+        this.nombre = nombre;
+        this.imagen = imagen;
+    }
+
     //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToMany(mappedBy = "generos", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany(mappedBy = "generos", cascade = {CascadeType.MERGE})
     private Set<PeliculaSerie> peliculas_series;
 }
