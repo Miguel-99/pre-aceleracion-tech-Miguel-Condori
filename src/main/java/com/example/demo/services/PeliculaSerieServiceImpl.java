@@ -1,12 +1,16 @@
 package com.example.demo.services;
 
+import com.example.demo.dto.builder.GeneroBuilder;
+import com.example.demo.dto.builder.PeliculaSerieBuilder;
+import com.example.demo.dto.builder.PersonajeBuilder;
+import com.example.demo.models.Genero;
 import com.example.demo.models.PeliculaSerie;
+import com.example.demo.models.Personaje;
 import com.example.demo.repositories.PeliculaSerieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class PeliculaSerieServiceImpl implements PeliculaSerieService{
@@ -30,7 +34,32 @@ public class PeliculaSerieServiceImpl implements PeliculaSerieService{
 
     @Override
     public List<PeliculaSerie> findALl() {
-        return peliculaSerieRepository.findAll();
+        List<PeliculaSerie> peliculaSeries = peliculaSerieRepository.findAll();
+        List<PeliculaSerie> peliculaSerieNoRecursivo = new ArrayList<>();
+
+
+        for (PeliculaSerie ps : peliculaSeries) {
+            PeliculaSerie auxPS = new PeliculaSerieBuilder().withPeliculaSerie(ps).build();
+            Set<Personaje> listaPersonajesDTO = new HashSet<>();
+
+
+            for (Personaje personaje: ps.getPersonajes()) {
+                Personaje personajeSinPeliculas = new PersonajeBuilder().withPersonaje(personaje).build();
+                listaPersonajesDTO.add(personajeSinPeliculas);
+            }
+
+            Set<Genero> listaGenerosDTO = new HashSet<>();
+            for (Genero gen: ps.getGeneros()) {
+                Genero generoSinPeliculas = new GeneroBuilder().withGenero(gen).build();
+                listaGenerosDTO.add(generoSinPeliculas);
+            }
+
+            auxPS.setGeneros(listaGenerosDTO);
+            auxPS.setPersonajes(listaPersonajesDTO);
+            peliculaSerieNoRecursivo.add(auxPS);
+        }
+
+        return peliculaSerieNoRecursivo;
     }
 
     @Override
@@ -66,5 +95,6 @@ public class PeliculaSerieServiceImpl implements PeliculaSerieService{
             return peliculaSerieRepository.findByOrderByFechaCreacionAsc();
         return peliculaSerieRepository.findByOrderByFechaCreacionDesc();
     }
+
 
 }
