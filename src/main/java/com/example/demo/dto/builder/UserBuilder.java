@@ -20,6 +20,6 @@ public class UserBuilder {
     }
 
     public User build() {
-        return new User(username, firstName, lastName, email, password);
+        return new User(firstName, lastName, email, username, password);
     }
 }
