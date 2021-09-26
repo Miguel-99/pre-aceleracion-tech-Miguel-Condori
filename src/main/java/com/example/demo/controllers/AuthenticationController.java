@@ -1,8 +1,8 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dto.UserDTO;
-import com.example.demo.models.AuthenticationRequest;
-import com.example.demo.models.AuthenticationResponse;
+import com.example.demo.dto.AuthenticationRequest;
+import com.example.demo.dto.AuthenticationResponse;
 import com.example.demo.models.User;
 import com.example.demo.services.UserDetailServiceImpl;
 import com.example.demo.services.UserService;
