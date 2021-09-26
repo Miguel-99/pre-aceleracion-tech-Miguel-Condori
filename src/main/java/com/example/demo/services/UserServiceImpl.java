@@ -1,9 +1,9 @@
 package com.example.demo.services;
 
 import com.example.demo.dto.UserDTO;
-import com.example.demo.dto.builder.UserBuilder;
 import com.example.demo.models.User;
 import com.example.demo.repositories.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,10 +23,10 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User save(UserDTO userDTO) {
-        User user = new UserBuilder().withUsuarioDto(userDTO).build();
+        ModelMapper modelMapper = new ModelMapper();
+        User user = modelMapper.map(userDTO, User.class);
         user = userRepository.save(user);
 
-        //TODO: agregar envio de link de autenticación
         emailSenderService.send(user.getEmail(), "http://localhost:9000/api/v1/login");
         return user;
     }
